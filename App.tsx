@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import DashboardHome from './components/DashboardHome';
 import SchemaExplorer from './components/SchemaExplorer';
 import CodeGenerator from './components/CodeGenerator';
+import APIReference from './components/APIReference';
 import { ViewState } from './types';
 import { Bell, Search, Settings } from 'lucide-react';
 
@@ -18,6 +19,8 @@ const App: React.FC = () => {
         return <SchemaExplorer />;
       case ViewState.CodeGenerator:
         return <CodeGenerator />;
+      case ViewState.APIReference:
+        return <APIReference />;
       case ViewState.UserManagement:
         return (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-400 bg-white rounded-3xl border border-dashed border-slate-300">

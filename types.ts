@@ -30,5 +30,6 @@ export enum ViewState {
   UserManagement = 'users',
   MediaLibrary = 'media',
   SchemaExplorer = 'schema',
-  CodeGenerator = 'code'
+  CodeGenerator = 'code',
+  APIReference = 'api'
 }

@@ -17,23 +17,27 @@ export const geminiService = {
       model: 'gemini-3-pro-preview',
       contents: `Generate a production-ready Node.js Express backend project for '${projectName}'. 
       
-      CRITICAL SECURITY & DEPLOYMENT REQUIREMENTS:
-      1. Include 'cors' middleware configured to allow requests from your frontend URL.
-      2. Use 'helmet' for security headers.
-      3. Use 'express-rate-limit' on the /auth/login route.
-      4. Database: MongoDB via Mongoose. Use: ${mongoUri}
+      CRITICAL DEPLOYMENT REQUIREMENTS FOR RENDER:
+      1. Entry Point: Create 'server.js'. It must use const PORT = process.env.PORT || 5000;
+      2. Dependencies: Create a 'package.json' that includes: 
+         express, mongoose, cloudinary, dotenv, cors, helmet, bcryptjs, jsonwebtoken.
+      3. Scripts: Set "start": "node server.js" in package.json.
+      4. Database: MongoDB via Mongoose. Connection string: ${mongoUri}
       5. Media: Cloudinary. Use Cloud Name: ${cloudinaryConfig.cloudName}, API Key: ${cloudinaryConfig.apiKey}, API Secret: ${cloudinaryConfig.apiSecret}
-      6. Authentication: JWT with bcrypt password hashing.
-      7. Structure:
-         - server.js (main entry, uses process.env.PORT)
-         - config/db.js (mongoose connection)
-         - config/cloudinary.js (cloudinary config)
-         - models/ (User.js, Image.js)
-         - routes/ (auth.js, images.js)
-         - controllers/ (authController.js, imageController.js)
-         - middleware/ (authMiddleware.js)
-         - .env (containing the real credentials provided above)
-      8. Documentation: A detailed README.md for deployment on Render.com or Railway.app.
+      
+      FILE LIST TO GENERATE:
+      - package.json
+      - server.js (Main logic)
+      - .env (Environment variables)
+      - config/db.js
+      - config/cloudinary.js
+      - models/User.js
+      - models/Image.js
+      - routes/auth.js
+      - routes/images.js
+      - controllers/authController.js
+      - controllers/imageController.js
+      - middleware/authMiddleware.js
       
       Return a JSON object with 'files' (array of {path, content, language}) and 'summary' (markdown string).`,
       config: {

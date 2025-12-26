@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { ViewState } from '../types';
-import { LayoutDashboard, Users, Image as ImageIcon, Database, Code2, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Users, Image as ImageIcon, Database, Code2, ShieldCheck, Globe } from 'lucide-react';
 
 interface SidebarProps {
   currentView: ViewState;
@@ -15,6 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) => {
     { id: ViewState.MediaLibrary, label: 'Media Library', icon: ImageIcon },
     { id: ViewState.SchemaExplorer, label: 'Schema Explorer', icon: Database },
     { id: ViewState.CodeGenerator, label: 'Backend Code', icon: Code2 },
+    { id: ViewState.APIReference, label: 'API Reference', icon: Globe },
   ];
 
   return (
