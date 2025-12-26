@@ -2,7 +2,7 @@
 {
   "name": "bhamini-p1198-backend",
   "version": "1.0.0",
-  "description": "Backend for Bhamini-P1198 using MongoDB and Cloudinary",
+  "description": "Production Backend for Bhamini-P1198",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
