@@ -1,0 +1,7 @@
+{
+  "name": "Bhamini-P1198 Backend Architect",
+  "description": "A sophisticated management dashboard for simulating and generating a MongoDB + Cloudinary backend structure for the Bhamini-P1198 project.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
