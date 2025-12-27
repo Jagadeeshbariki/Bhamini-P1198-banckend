@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { BackendStat } from '../types';
-import { ArrowUpRight, ArrowDownRight, Users, Image as ImageIcon, Server, Activity, AlertCircle, ShieldAlert, ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowUpRight, ArrowDownRight, Users, Image as ImageIcon, Server, Activity, AlertCircle, ShieldAlert, ArrowRight, CheckCircle, RefreshCw } from 'lucide-react';
 
 const stats: BackendStat[] = [
   { label: 'Total Users', value: '1,284', change: '+12%', trend: 'up' },
@@ -12,14 +12,19 @@ const stats: BackendStat[] = [
 
 const DashboardHome: React.FC = () => {
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8 animate-in fade-in duration-500 pb-20">
       <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-slate-800">System Overview</h2>
           <p className="text-slate-500">Real-time status of Bhamini-P1198 Cluster.</p>
         </div>
-        <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-xl border border-emerald-100 text-xs font-bold">
-          <CheckCircle size={14} /> System Health: Optimal
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 bg-indigo-50 text-indigo-700 px-4 py-2 rounded-xl border border-indigo-100 text-xs font-bold">
+            <RefreshCw size={14} className="animate-spin-slow" /> GitHub Auto-Sync: ON
+          </div>
+          <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-xl border border-emerald-100 text-xs font-bold">
+            <CheckCircle size={14} /> System Health: Optimal
+          </div>
         </div>
       </header>
 

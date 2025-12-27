@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { geminiService } from '../services/geminiService';
-import { Copy, Check, Sparkles, Loader2, FileCode, Folder, ChevronRight, Download, Terminal, Globe, Cloud, Key, Database, ShieldAlert, CheckCircle2, ListChecks, Info, AlertTriangle, FileWarning, ExternalLink } from 'lucide-react';
+import { Copy, Check, Sparkles, Loader2, FileCode, Folder, ChevronRight, Download, Terminal, Globe, Cloud, Key, Database, ShieldAlert, CheckCircle2, ListChecks, Info, AlertTriangle, FileWarning, ExternalLink, RefreshCw, GitBranch, Github } from 'lucide-react';
 
 interface ProjectFile {
   path: string;
@@ -51,7 +51,7 @@ const CodeGenerator: React.FC = () => {
   const selectedFile = project?.files.find(f => f.path === selectedFilePath);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-20">
       <div className="bg-gradient-to-r from-indigo-600 to-violet-700 rounded-3xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-indigo-100 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-4 opacity-10">
           <Cloud size={120} />
@@ -103,58 +103,98 @@ const CodeGenerator: React.FC = () => {
       </div>
 
       {activeTab === 'troubleshoot' && (
-        <div className="bg-white border border-red-100 rounded-3xl p-8 shadow-sm animate-in fade-in slide-in-from-bottom-2">
-           <div className="flex items-center gap-4 mb-6">
-              <div className="bg-red-100 p-3 rounded-2xl text-red-600">
-                 <FileWarning size={32} />
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
+           <div className="bg-white border border-red-100 rounded-3xl p-8 shadow-sm">
+              <div className="flex items-center gap-4 mb-6">
+                  <div className="bg-red-100 p-3 rounded-2xl text-red-600">
+                    <RefreshCw size={32} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-800">Auto-Deployment is ACTIVE</h3>
+                    <p className="text-slate-500 text-sm">Render detects GitHub changes automatically. No manual refresh needed.</p>
+                  </div>
               </div>
-              <div>
-                 <h3 className="text-xl font-bold text-slate-800">Deployment Path Fixed</h3>
-                 <p className="text-slate-500 text-sm">The <code>server.js</code> file has been added to the root. Follow these steps for Render.</p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Github size={16} className="text-slate-600" />
+                    <span className="font-bold text-slate-800 text-xs uppercase tracking-wider">Step 1: Commit</span>
+                  </div>
+                  <p className="text-xs text-slate-500">Push your updated <b>server.js</b> or <b>package.json</b> to GitHub.</p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Cloud size={16} className="text-indigo-600" />
+                    <span className="font-bold text-slate-800 text-xs uppercase tracking-wider">Step 2: Detect</span>
+                  </div>
+                  <p className="text-xs text-slate-500">Render detects the push and starts a new build immediately.</p>
+                </div>
+                <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Globe size={16} className="text-emerald-600" />
+                    <span className="font-bold text-slate-800 text-xs uppercase tracking-wider">Step 3: Live</span>
+                  </div>
+                  <p className="text-xs text-slate-500">Once the build passes, your new code is live on your Render URL.</p>
+                </div>
+              </div>
+
+              <div className="bg-amber-50 p-6 rounded-2xl border border-amber-200">
+                <h4 className="font-bold text-amber-900 mb-2 flex items-center gap-2">
+                  <Info size={18} /> Important: Auto-Deploy Toggle
+                </h4>
+                <p className="text-sm text-amber-700 mb-4">
+                  By default, Render has <strong>Auto-Deploy: Yes</strong> enabled. If your site isn't updating:
+                </p>
+                <ol className="text-xs text-amber-800 space-y-2 list-decimal ml-4">
+                  <li>Go to your Render Dashboard.</li>
+                  <li>Click on your Service (Bhamini-P1198-Backend).</li>
+                  <li>Go to <b>Settings</b>.</li>
+                  <li>Ensure <b>Auto-Deploy</b> is set to <b>Yes</b>.</li>
+                </ol>
               </div>
            </div>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                 <div className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0">1</div>
-                    <div>
-                       <p className="font-bold text-slate-800">Root vs Src Folder</p>
-                       <p className="text-sm text-slate-500 mt-1">Render was looking for <code>src/server.js</code>. I have placed <code>server.js</code> in the <b>Root Directory</b>. Update your Render Start Command to <code>node server.js</code>.</p>
-                    </div>
-                 </div>
-                 <div className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs shrink-0">2</div>
-                    <div>
-                       <p className="font-bold text-slate-800">Ensure Files are Comitted</p>
-                       <p className="text-sm text-slate-500 mt-1">Make sure you have copied <b>server.js</b> and <b>package.json</b> from this tool into your GitHub repository root.</p>
-                    </div>
-                 </div>
+           <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+              <div className="flex items-center gap-4 mb-6">
+                  <div className="bg-slate-100 p-3 rounded-2xl text-slate-600">
+                    <FileWarning size={32} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-800">Critical File Paths</h3>
+                    <p className="text-slate-500 text-sm">Verify your repository structure matches this layout.</p>
+                  </div>
               </div>
-              
-              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                 <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <CheckCircle2 size={18} className="text-green-600" /> Current Repo State
-                 </h4>
-                 <div className="font-mono text-sm space-y-1 text-slate-600">
-                    <div className="flex items-center gap-2"><Folder size={14} className="text-indigo-400" /> repo-root/</div>
-                    <div className="flex items-center gap-2 ml-4 bg-green-100/50 px-2 py-0.5 rounded"><FileCode size={14} className="text-slate-400" /> <b>server.js</b> (Added)</div>
-                    <div className="flex items-center gap-2 ml-4 bg-green-100/50 px-2 py-0.5 rounded"><FileCode size={14} className="text-slate-400" /> <b>package.json</b> (Added)</div>
-                    <div className="flex items-center gap-2 ml-4"><FileCode size={14} className="text-slate-400" /> index.html</div>
-                 </div>
-                 <div className="mt-8 p-4 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-200">
-                    <p className="text-xs font-bold uppercase tracking-widest opacity-70 mb-2">Required Render Settings</p>
-                    <div className="space-y-2">
-                      <div className="flex justify-between border-b border-white/20 pb-1">
-                        <span className="text-indigo-200">Start Command:</span>
-                        <code className="bg-black/20 px-1 rounded">node server.js</code>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-indigo-200">Runtime:</span>
-                        <span className="font-bold">Node.js</span>
-                      </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-6">
+                    <div className="flex gap-4">
+                        <div className="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0">1</div>
+                        <div>
+                          <p className="font-bold text-slate-800">Root Directory Only</p>
+                          <p className="text-sm text-slate-500 mt-1">Place <code>server.js</code> in the <b>main folder</b>, not inside <code>src/</code>.</p>
+                        </div>
                     </div>
-                 </div>
+                    <div className="flex gap-4">
+                        <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs shrink-0">2</div>
+                        <div>
+                          <p className="font-bold text-slate-800">Start Command</p>
+                          <p className="text-sm text-slate-500 mt-1">Your Render Start Command must be <code>node server.js</code>.</p>
+                        </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <CheckCircle2 size={18} className="text-green-600" /> Repository Mapping
+                    </h4>
+                    <div className="font-mono text-sm space-y-1 text-slate-600">
+                        <div className="flex items-center gap-2"><Folder size={14} className="text-indigo-400" /> repo-root/</div>
+                        <div className="flex items-center gap-2 ml-4 bg-green-100/50 px-2 py-0.5 rounded"><FileCode size={14} className="text-slate-400" /> <b>server.js</b></div>
+                        <div className="flex items-center gap-2 ml-4 bg-green-100/50 px-2 py-0.5 rounded"><FileCode size={14} className="text-slate-400" /> <b>package.json</b></div>
+                        <div className="flex items-center gap-2 ml-4"><FileCode size={14} className="text-slate-400" /> index.html</div>
+                    </div>
+                  </div>
               </div>
            </div>
         </div>
@@ -277,7 +317,7 @@ const CodeGenerator: React.FC = () => {
                   </div>
                   <button 
                     onClick={() => {
-                      const content = selectedFilePath === 'server.js' ? '/* See server.js in root */' : (selectedFile?.content || '');
+                      const content = selectedFile?.content || '';
                       copyToClipboard(content);
                     }}
                     className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all flex items-center gap-2 text-xs"
@@ -288,7 +328,7 @@ const CodeGenerator: React.FC = () => {
                 </div>
                 <div className="flex-1 overflow-auto p-6 font-mono text-sm leading-relaxed scrollbar-thin scrollbar-thumb-white/10">
                   <pre className="text-indigo-300 whitespace-pre-wrap">
-                    <code>{selectedFile?.content || '/* Source file is located in the root directory. Copy it manually if needed. */'}</code>
+                    <code>{selectedFile?.content || '/* Source file loaded. Copy it manually if needed. */'}</code>
                   </pre>
                 </div>
               </>
