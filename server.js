@@ -8,15 +8,18 @@ const connectDB = require('./config/db');
 // Initialize Express
 const app = express();
 
+// 1. Parse JSON payloads first (Limit: 50mb for Base64 Images)
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// 2. Security & Cross-Origin
+app.use(helmet());
+app.use(cors());
+
 // Connect to MongoDB Cluster0
 connectDB();
 
-// Middleware
-app.use(helmet());
-app.use(cors());
-app.use(express.json({ limit: '50mb' }));
-
-// Routes
+// 3. Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/images', require('./routes/images'));
 

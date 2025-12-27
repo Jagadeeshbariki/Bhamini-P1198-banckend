@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Globe, Shield, Image as ImageIcon, Lock, Key, Copy, Check, AlertCircle, HelpCircle, Terminal, ExternalLink } from 'lucide-react';
+import { Globe, Shield, Image as ImageIcon, Lock, Key, Copy, Check, AlertCircle, HelpCircle, Terminal, ExternalLink, Settings, ShieldAlert } from 'lucide-react';
 
 const APIReference: React.FC = () => {
   const [copied, setCopied] = useState<string | null>(null);
@@ -74,24 +74,37 @@ const APIReference: React.FC = () => {
         </div>
       </header>
 
-      {/* 404 Troubleshooting Alert */}
-      <section className="bg-red-50 border-2 border-red-200 rounded-3xl p-6 shadow-sm">
+      {/* 401 Fix Alert */}
+      <section className="bg-indigo-50 border-2 border-indigo-200 rounded-3xl p-6 shadow-sm">
         <div className="flex items-start gap-5">
-          <div className="bg-red-500 p-3 rounded-2xl text-white">
-            <HelpCircle size={24} />
+          <div className="bg-indigo-600 p-3 rounded-2xl text-white">
+            <ShieldAlert size={24} />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-bold text-red-900 mb-1">Getting "404 Not Found" in Postman?</h3>
-            <p className="text-red-700 text-sm mb-4">
-              Render ignores requests that don't include the <code className="bg-red-200 px-1.5 rounded font-bold">/api</code> prefix. 
-              Always use the <b>Full URL</b> provided below.
+            <h3 className="text-lg font-bold text-indigo-900 mb-1">Fixing "401 Unauthorized"</h3>
+            <p className="text-indigo-700 text-sm mb-4">
+              Protected routes (Images) require an <b>Authorization</b> header. Follow these Postman steps:
             </p>
-            <div className="flex items-center justify-between bg-white border border-red-200 p-3 rounded-xl font-mono text-xs">
-              <span className="text-slate-400">Example:</span>
-              <code className="text-red-600 font-bold">{apiBase}/auth/register</code>
-              <button onClick={() => copyToClipboard(`${apiBase}/auth/register`, 'fix')} className="text-slate-400 hover:text-red-600 transition-colors">
-                {copied === 'fix' ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
-              </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+               <div className="bg-white p-4 rounded-xl border border-indigo-100 space-y-2">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Postman Headers Tab</span>
+                  <div className="flex flex-col gap-1">
+                     <div className="flex justify-between text-xs font-mono bg-slate-50 p-2 rounded">
+                        <span className="text-indigo-600 font-bold">Key:</span>
+                        <span className="text-slate-700">Authorization</span>
+                     </div>
+                     <div className="flex justify-between text-xs font-mono bg-slate-50 p-2 rounded">
+                        <span className="text-indigo-600 font-bold">Value:</span>
+                        <span className="text-slate-700">Bearer [YOUR_TOKEN]</span>
+                     </div>
+                  </div>
+               </div>
+               <div className="bg-white p-4 rounded-xl border border-indigo-100 space-y-2">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Common Error</span>
+                  <p className="text-[10px] text-slate-500 leading-relaxed">
+                     If your token is "undefined", you likely missed copying the token string from the <b>/auth/login</b> response body.
+                  </p>
+               </div>
             </div>
           </div>
         </div>
